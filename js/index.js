@@ -1,28 +1,36 @@
-var Todo = Backbone.Model.extend({
+var TodoView = Backbone.View.extend({
+	tagName: 'li',
+	
+	todoTpl: _.template("An example template"),
 
-	defaults:{
-		completed: false
+	events: {
+		'dblclick label': 'edit',
+		'keypress .edit': 'updateOnEnter',
+		'blur .edit': 'close'
 	},
 
-	validate: function(attr){
-		if(attr.title === undefined){
-			return 'Remember to set a title for you todo.';
-		}
+	initialize: function(options){
+		this.options = options || {};
 	},
 
-	initialize: function(){
-		console.log('This model has ben initialized.');
-		this.on('invalid', function(model, error){
-			console.log(error);
-		});
+	render: function(){
+		this.$el.html(this.todoTpl(this.model.toJSON()));
+		this.input - this.$('.edit');
+	},
+
+	edit: function(){
+
+	},
+
+	close: function(){
+
+	},
+
+	updateOnEnter: function(e){
+
 	}
 });
 
-var myTodo = new Todo();
-myTodo.set({completed: true}, {validate: true});
-console.log('completed: '+myTodo.get('completed'));
+var todoView = new TodoView();
 
-var emptyTodo = new Todo(null, {validate: true});
-console.log(emptyTodo.validationError);
-
-console.log(emptyTodo);
+console.log(todoView.el);
