@@ -21,3 +21,8 @@ var Todo = Backbone.Model.extend({
 var myTodo = new Todo();
 myTodo.set({completed: true}, {validate: true});
 console.log('completed: '+myTodo.get('completed'));
+
+var emptyTodo = new Todo(null, {validate: true});
+console.log(emptyTodo.validationError);
+
+console.log(emptyTodo);
