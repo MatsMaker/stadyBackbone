@@ -1,26 +1,23 @@
 var Todo = Backbone.Model.extend({
+
 	defaults:{
-		title: '',
 		completed: false
+	},
+
+	validate: function(attr){
+		if(attr.title === undefined){
+			return 'Remember to set a title for you todo.';
+		}
+	},
+
+	initialize: function(){
+		console.log('This model has ben initialized.');
+		this.on('invalid', function(model, error){
+			console.log(error);
+		});
 	}
 });
 
-var myTodo = new Todo({
-	title: 'Ste throungh instatiation.'
-});
-console.log('Todo title: ' + myTodo.get('title'));
-console.log('Completed: ' + myTodo.get('completed'));
-
-myTodo.set("title", "Title attibute set through Model.set()");
-console.log('Todo title: ' + myTodo.get('title'));
-
-console.log('Completed: '+myTodo.get('completed'));
-
-myTodo.set({
-	title: 'Both attributes set though Model.set()',
-	completed: true
-});
-
-console.log('Todo title: '+myTodo.get('title'));
-console.log('Completed: '+myTodo.get('completed'));
-
+var myTodo = new Todo();
+myTodo.set({completed: true}, {validate: true});
+console.log('completed: '+myTodo.get('completed'));
